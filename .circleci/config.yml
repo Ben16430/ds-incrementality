@@ -1,0 +1,77 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.6 #continuumio/anaconda3
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "cfg/requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: Install Dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r cfg/requirements.txt
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "cfg/requirements.txt" }}
+
+      - run:
+          name: Display Environment
+          command: |
+            . venv/bin/activate
+            which python
+            which pip
+            pip list
+
+      - run:
+          name: Unit Tests
+          command: |
+            . venv/bin/activate
+            python test/unittest_runner.py
+
+      - run:
+          name: Integration Tests
+          command: |
+            . venv/bin/activate
+            python test/integtest_runner.py
+
+      - run:
+          name: Code Coverage
+          command: |
+            . venv/bin/activate
+            coverage run --source bin test/unittest_runner.py
+            coverage report
+            coverage html -d test/coverage/
+
+      - run:
+          name: Coding Standards
+          command: |
+            . venv/bin/activate
+            set +e
+            mkdir test/standards
+            cd bin
+            pylint_runner > ../test/standards/standards.txt
+            cd ..
+            cat test/standards/standards.txt
+
+      - store_artifacts:
+          path: test/coverage
+          destination: coverage
+
+      - store_artifacts:
+          path: test/standards
+          destination: standards
+
+      - store_test_results:
+          path: test/reports/

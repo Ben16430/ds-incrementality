@@ -1,0 +1,23 @@
+repository: 'ds-template'
+project: 'TEMPLATE'
+
+configuration: ['../cfg/config_audit.yml','../cfg/config_data.yml', '../cfg/config_integration.yml', '../cfg/config_model.yml',
+'../cfg/config_rules.yml']
+
+access:
+  logentries:
+    token:
+      PROD: 'fb487a7f-bb22-471b-aafb-d75a8a268437'
+      TEST: '1b0733a1-a12a-4417-bd2a-070dfd6ebdcb'
+      DEV: 'eaab76fc-7580-4721-9d45-6a822381d783'
+  msteams:
+    url: 'https://constel1.webhook.office.com/webhookb2/bdc3f05b-093e-49f0-8785-4259c5129654@897c5146-ab0e-40e5-92cd-154908142efc/IncomingWebhook/7c6eaef0e52d4aa6ac67193db50f6039/8a89731c-ad22-4e0b-8917-21c909cb6ae6'
+  s3:
+    cbi:
+      access : 'gAAAAABfBTiOR5cbHqp9lq0ME02gpSGDYbwbvoC8ELGoZjcGPkBB41fVnOUyMkcctWmEXEyyjWK4nEB0JWfwu47uGp5lsJ57pNHKmHfNYk1L-3_JR5zM1RQ='
+      secret : 'gAAAAABfBTiO6tVCDUWfdHs0Ai5qgxIDRvl0RzlVkOg8bkyoe8l4Dx7DNoODUslGoTNhaFt99tsrX1fg4650K0xKhxIwHkYmwl2XoyE5rRLZ9DnW6j5IfEXgvRNZdR_H1kiu4GiJCBIv'
+      bucket : 's3-ds-work-test'
+      locked : True
+
+setup:
+

@@ -1,0 +1,15 @@
+--extra-index-url https://repo.fury.io/zLiHDS8SM1hRxBRbwT8K/cbrands/
+cbidscommon
+coverage
+pylint_runner
+pytest
+numpy
+pandas
+boto3
+slackclient
+PyYAML
+s3fs
+sqlalchemy
+awscli
+scipy
+scikit-learn
